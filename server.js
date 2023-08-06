@@ -10,7 +10,7 @@ const db = mysql.createConnection(
     {
         host: '127.0.0.1',
         user: 'root',
-        password: 'rootroot',
+        password: 'Jalaw123!',
         database: 'emp_db'
     },
     console.log(`Connected to the emp_db database.`)
@@ -329,7 +329,7 @@ const updateEmployee = async () => {
             choices: rolesList
         }])
 
-        const wtfRole = roles.filter((role) => role.id === updateRole.id);
+        const whichRole = roles.filter((role) => role.id === updateRole.id);
         
         if (updateRole.id === who[0].role_id) {
             console.log('Employee already has this role');
@@ -338,12 +338,12 @@ const updateEmployee = async () => {
             const confirmUpdateRole = await inquirer.prompt([{
                 type: 'confirm',
                 name: 'confirm',
-                message: `Are you sure you want to update ${who[0].first_name} ${who[0].last_name}'s role to ${wtfRole[0].title}?`
+                message: `Are you sure you want to update ${who[0].first_name} ${who[0].last_name}'s role to ${whichRole[0].title}?`
             }])
 
             if (confirmUpdateRole.confirm) { //pls no boolie this is so redundant and i hate it
                 db.query('UPDATE employees SET role_id = ? WHERE id = ?', [updateRole.id, selectedEmployee.id]);
-                console.log(`Updated ${who[0].first_name} ${who[0].last_name}'s role to ${wtfRole[0].title}`);
+                console.log(`Updated ${who[0].first_name} ${who[0].last_name}'s role to ${whichRole[0].title}`);
             } else {
                 console.log('Cancelled');
             }
@@ -356,17 +356,17 @@ const updateEmployee = async () => {
             choices: managerList
         }])
 
-        const wutManager = managers.filter((employee) => employee.id === updateManager.id);
+        const whichManager = managers.filter((employee) => employee.id === updateManager.id);
 
         const confirmUpdateManager = await inquirer.prompt([{
             type: 'confirm',
             name: 'confirm',
-            message: `Are you sure you want to update ${who[0].first_name} ${who[0].last_name}'s manager to ${wutManager[0].first_name} ${wutManager[0].last_name}?`
+            message: `Are you sure you want to update ${who[0].first_name} ${who[0].last_name}'s manager to ${whichManager[0].first_name} ${whichManager[0].last_name}?`
         }])
 
         if (confirmUpdateManager.confirm) {
             db.query('UPDATE employees SET manager_id = ? WHERE id = ?', [updateManager.id, selectedEmployee.id]);
-            console.log(`Updated ${who[0].first_name} ${who[0].last_name}'s manager to ${wutManager[0].first_name} ${wutManager[0].last_name}`);
+            console.log(`Updated ${who[0].first_name} ${who[0].last_name}'s manager to ${whichManager[0].first_name} ${whichManager[0].last_name}`);
         } else {
             console.log('Cancelled');
         }
